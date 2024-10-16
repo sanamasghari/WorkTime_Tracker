@@ -16,7 +16,7 @@ void read(const char *_data) {
   for (int i = 0; fgets(line, sizeof(line), data) != NULL; i++) {
     printf("employee %d\n", i + 1);
     sscanf(line, "%[^,],\"%[^\"]\",\"%[^\"]\"", name, entry, quit);
-    //if ()
+    if ()
     printf("name: %s\n entery clock: %s\n quit clock: %s\n", name, entry, quit);
   }
   fclose(data);
