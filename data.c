@@ -1,6 +1,7 @@
 
 #include <stdio.h>
 #include <stdlib.h>
+#include <string.h>
 
 void read(const char *_data) {
   FILE *data;
@@ -16,8 +17,11 @@ void read(const char *_data) {
   for (int i = 0; fgets(line, sizeof(line), data) != NULL; i++) {
     printf("employee %d\n", i + 1);
     sscanf(line, "%[^,],\"%[^\"]\",\"%[^\"]\"", name, entry, quit);
-    if ()
-    printf("name: %s\n entery clock: %s\n quit clock: %s\n", name, entry, quit);
+    if (strlen(entry) == 0 || strlen(quit) == 0){
+      printf(" ");
+    }else{
+      printf("name: %s\n entery clock: %s\n quit clock: %s\n", name, entry, quit);
+    }
   }
   fclose(data);
 }

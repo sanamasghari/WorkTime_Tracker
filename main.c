@@ -15,12 +15,6 @@ int main() {
   }
 
   scanf("aaaaa");
-  // getchar();
-
-  // dataa(1,2);
-  //  float mean;
-  //  mean = (midterm + final[]) / 2;
-  //  printf("mean :%g", mean);
 
   return 0;
 }
