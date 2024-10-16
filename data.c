@@ -17,13 +17,27 @@ void read(const char *_data) {
   for (int i = 0; fgets(line, sizeof(line), data) != NULL; i++) {
     printf("employee %d\n", i + 1);
     sscanf(line, "%[^,],\"%[^\"]\",\"%[^\"]\"", name, entry, quit);
-    if (strlen(entry) == 0 || strlen(quit) == 0){
-      printf(" ");
-    }else{
-      printf("name: %s\n entery clock: %s\n quit clock: %s\n", name, entry, quit);
+    if (strlen(entry) == 0){
+      printf(" no entry");
     }
+    else if(strlen(quit) == 0){
+      printf(" no guit");
+    }
+    else
+    {
+      printf(" %s\n   entery clock: %s\n   quit clock: %s\n", name, entry, quit);
+    }
+    // if (strlen(entry) == 0 || strlen(quit) == 0) {
+    //   printf("Employee %d\n", i + 1); // Print employee number
+    //   printf(" \n");                              // Print only a space
+    // } else {
+    //   printf("Employee %d\n", i + 1); // Print employee number
+    //   printf("Name: %s\nEntry clock: %s\nQuit clock: %s\n", name, entry, quit);
+    //   i++; // Increment count only for valid entries
+    // }
   }
   fclose(data);
+
 }
 void add(const char *_data) {
   FILE *data;
@@ -43,4 +57,5 @@ void add(const char *_data) {
 
   fprintf(data, "%s,\" %s\",\" %s\n", name, entry, quit);
   fclose(data);
+  
 }
