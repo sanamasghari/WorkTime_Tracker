@@ -3,6 +3,13 @@
 #include <stdlib.h>
 #include <string.h>
 
+struct var {
+
+  char name[20];
+  int entry_hour, entry_minute;
+  int quit_hour, quit_minute;
+} d;
+
 void read(const char *_data) {
   FILE *data;
   data = fopen("_data.csv", "r");
@@ -10,34 +17,24 @@ void read(const char *_data) {
     printf("error\n");
     return;
   }
-  char name[20], entry[20], quit[20];
-  // int n;
-  // fscanf(data, "%d", &n);
+
   char line[100];
   for (int i = 0; fgets(line, sizeof(line), data) != NULL; i++) {
     printf("employee %d\n", i + 1);
-    sscanf(line, "%[^,],\"%[^\"]\",\"%[^\"]\"", name, entry, quit);
-    if (strlen(entry) == 0){
-      printf(" no entry");
+    if (sscanf(line, "%[^,],%d,%d,%d,%d", d.name, &d.entry_hour,
+               &d.entry_minute, &d.quit_hour, &d.quit_minute) <
+        5) { // if one of these parametr don't enter terminal print 0
+      d.entry_hour = 0;
+      d.entry_minute = 0;
+      d.quit_hour = 0;
+      d.quit_minute = 0;
     }
-    else if(strlen(quit) == 0){
-      printf(" no guit");
-    }
-    else
-    {
-      printf(" %s\n   entery clock: %s\n   quit clock: %s\n", name, entry, quit);
-    }
-    // if (strlen(entry) == 0 || strlen(quit) == 0) {
-    //   printf("Employee %d\n", i + 1); // Print employee number
-    //   printf(" \n");                              // Print only a space
-    // } else {
-    //   printf("Employee %d\n", i + 1); // Print employee number
-    //   printf("Name: %s\nEntry clock: %s\nQuit clock: %s\n", name, entry, quit);
-    //   i++; // Increment count only for valid entries
-    // }
-  }
-  fclose(data);
 
+    printf(" %s\n   entery clock: %d:%d\n   quit clock: %d:%d\n", d.name,
+           d.entry_hour, d.entry_minute, d.quit_hour, d.quit_minute);
+  }
+
+  fclose(data);
 }
 void add(const char *_data) {
   FILE *data;
@@ -46,16 +43,35 @@ void add(const char *_data) {
     printf("error\n");
     return;
   }
-  char name[20], entry[20], quit[20];
 
   printf("Enter name: ");
-  scanf("%s", name);
+  scanf("%s", d.name);
   printf("Enter entry clock (HH:MM): ");
-  scanf("%s", entry);
-  printf("Enter quit clock (HH:MM): ");
-  scanf("%s", quit);
+  scanf("%d:%d", &d.entry_hour, &d.entry_minute);
 
-  fprintf(data, "%s,\" %s\",\" %s\n", name, entry, quit);
+  printf("Enter quit clock (HH:MM): ");
+  scanf("%d:%d", &d.quit_hour, &d.quit_minute);
+  fprintf(data, "%s,%d,%d,%d,%d\n", d.name, d.entry_hour, d.entry_minute,
+          d.quit_hour, d.quit_minute);
   fclose(data);
-  
+  printf("file closed\n");
+  scanf("aaa");
+}
+
+void list(const char *_data, const char *search_employee ) {
+  FILE *data;
+  data = fopen("_data.csv", "r");
+  if (data == NULL) {
+    printf("error\n");
+    return;
+  }
+  int employee = 0;
+
+    if (strcmp(d.name, search_employee) == 0) {
+      //  for (int i = 0; i < employee; i++)
+      employee = 1;
+      printf("employee: %s\n", d.name);
+      printf("entry : %02d:%02d\n", d.entry_hour, d.entry_minute);
+      printf("quit: %02d:%02d\n", d.quit_hour, d.quit_minute);
+    }
 }
