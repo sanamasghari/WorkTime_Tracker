@@ -4,6 +4,6 @@
 
 void read(const char *);
 void add(const char *);
-void list(const char *, const char *);
-
+int specific_person(const char *, const char *);
+void salary(const char *);
 #endif

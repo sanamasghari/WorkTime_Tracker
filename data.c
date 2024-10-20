@@ -58,20 +58,51 @@ void add(const char *_data) {
   scanf("aaa");
 }
 
-void list(const char *_data, const char *search_employee ) {
+int specific_person(const char *_data, const char *search_employee) {
   FILE *data;
   data = fopen("_data.csv", "r");
   if (data == NULL) {
     printf("error\n");
-    return;
+    return 0;
   }
   int employee = 0;
 
-    if (strcmp(d.name, search_employee) == 0) {
-      //  for (int i = 0; i < employee; i++)
-      employee = 1;
+  char line[100];
+  int working_minuts_a_day = 0;
+  int sum_of_working_hours = 0;
+  for (int i; fgets(line, sizeof(line), data) != NULL; i++) {
+
+    if (strstr(line, search_employee) != NULL) {
+      sscanf(line, "%[^,],%d,%d,%d,%d", d.name, &d.entry_hour, &d.entry_minute,
+             &d.quit_hour, &d.quit_minute);
+
       printf("employee: %s\n", d.name);
-      printf("entry : %02d:%02d\n", d.entry_hour, d.entry_minute);
+      printf("entry: %02d:%02d\n", d.entry_hour, d.entry_minute);
       printf("quit: %02d:%02d\n", d.quit_hour, d.quit_minute);
+      working_minuts_a_day =
+          (d.quit_hour - d.entry_hour) * 60 + (d.quit_minute - d.entry_minute);
+      int working_hours = working_minuts_a_day / 60;
+      int working_minuts = working_minuts_a_day % 60;
+      printf("total work minutes a day:%d\n", working_minuts_a_day);
+      printf("total working time a day:%d:%d\n", working_hours, working_minuts);
+      sum_of_working_hours += working_minuts_a_day;
     }
+  }
+  printf("total working minuts at all:%d\n", sum_of_working_hours);
+  fclose(data);
+  return sum_of_working_hours;
+}
+
+void salary(const char *search_employee) {
+  int total_working_minuts_at_all = specific_person("data.cvs", search_employee);
+  printf("total working minuts at all:%d\n", total_working_minuts_at_all);
+
+  printf("What is the hourly wage?\n");
+  float salary_per_hour;
+  scanf("%f", &salary_per_hour);
+
+  float total_salary = 0;
+  total_salary = (salary_per_hour * total_working_minuts_at_all);
+
+  printf("salary :%f\n", total_salary);
 }

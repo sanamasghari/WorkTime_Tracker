@@ -6,33 +6,33 @@
 #include "data.h"
 
 int main() {
-
-  read("_data.csv");
-
-////////////////
-
-  while (1) {
-    char input[3];
-    printf("if you want to add new employee's information, type 'add' ");
-    scanf("%3s", input); // only 3 char
-
-    if (strcmp(input, "add") != 0) {
-      break;
+  printf("Welcome to the Entry and Exit Calculation Program :)\n Please choose "
+         "an option:\n To view information only, enter \"read\".\nTo add new "
+         "information, enter \"add\".\nTo view the total entry and exit hours, "
+         "enter \"total\".\nTo calculate salary, enter \"salary\".\n");
+  char choose[6];
+  scanf("%s", &choose);
+  if (strcmp(choose, "read") == 0) {
+    read("_data.csv");
+  }else if (strcmp(choose, "add") == 0) {
+    while (1) {
+      add("_data.csv");
+      if (strcmp(choose, "add") != 0) {
+        break;
+      }
     }
-    add("_data.csv");
+  }else if (strcmp(choose, "total") == 0) {
+    printf("enter name of employee");
+    char employee_name[20];
+    scanf("%s", employee_name);
+    specific_person("data.cvs", employee_name);
+  } else if (strcmp(choose, "salary") == 0){
+    printf("enter name of employee");
+    char employee_name[20];
+    scanf("%s", employee_name);
+    salary(employee_name);
   }
+    system("pause");
 
-/////////////////////////////////
-
-  printf("enter name of employee");
-  char employee_name[20];
-  // const char *data = "_data.csv";
-  scanf("%s", employee_name);
-  for (int i = 0; i < 31; i++)
-  {
-    list("data.cvs", employee_name);
+    return 0;
   }
-  system("pause");
-
-  return 0;
-}
