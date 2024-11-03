@@ -1,0 +1,15 @@
+{
+	"folders": [
+		{
+			"path": "."
+		},
+		{
+			"path": "../New folder"
+		}
+	],
+	"settings": {
+		"files.associations": {
+			"typeinfo": "c"
+		}
+	}
+}
